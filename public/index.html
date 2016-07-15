@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PhoneInfo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body ng-app="ngPhones" ng-controller="phonesController">
+    <div class="col-md-9">
+      <table class="table table-striped table-condensed">
+        <tr ng-repeat="spec in phoneSpecs">
+          <td><strong>{{spec.title}}</strong></td>
+          <td>{{spec.value}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Select phone</h3>
+        </div>
+        <div class="panel-body">
+          <select ng-model="selectedBrand" ng-change="findPhones(selectedBrand)">
+            <option ng-repeat="brand in brands" ng-value="brand.href">
+              {{brand.title}}
+            </option>
+          </select>
+          <select ng-model="selectedPhone" ng-show="phoneSelectVisible == true" ng-change="phoneInfo(selectedPhone)">
+            <option ng-repeat="phone in phones" ng-value="phone.href">
+              {{phone.title}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Search phone</h3>
+        </div>
+        <div class="panel-body">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for..." ng-model="searchText">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ng-click="searchPhone(searchText)">Go!</button>
+            </span>
+          </div><!-- /input-group -->
+          <ul ng-model="searchResult">
+            <li ng-repeat="result in searchResult" ng-click="phoneInfo(result.href)">
+              <a>{{result.title}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div> <!--.col-md-2 -->
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="app.js"></script>
+  <script src="scripts/phonesController.js"></script>
+  <script src="scripts/brandsFactory.js"></script>
+  <script src="scripts/phonesFactory.js"></script>
+  <script src="scripts/phoneFactory.js"></script>
+  <script src="scripts/searchFactory.js"></script>
+</html>
