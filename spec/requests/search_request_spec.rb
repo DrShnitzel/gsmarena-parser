@@ -21,7 +21,7 @@ describe '/api/search' do
       end
     end
   end
-  context 'when result is empty' do
+  context 'when result should be empty' do
     before :all do
       VCR.use_cassette('api_search_empty') do
         get '/api/search?text=samhkdkhdokdfkgdfkkso'

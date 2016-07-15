@@ -9,26 +9,28 @@ class Application < Sinatra::Base
   end
 
   get '/api/brands' do
-    body = GsmarenaParser.new.brands
-    respond_with!(200, body)
+    respond_with!(200, parser.brands)
   end
 
   get '/api/phones' do
-    body = GsmarenaParser.new(params).phones
-    respond_with!(200, body)
+    respond_with!(200, parser.phones)
   end
 
   get '/api/phone' do
-    body = GsmarenaParser.new(params).phone
-    respond_with!(200, body)
+    respond_with!(200, parser.phone)
   end
 
   get '/api/search' do
-    body = GsmarenaParser.new(params).search
-    respond_with!(200, body)
+    respond_with!(200, parser.search_phones)
   end
 
   private
+
+  def parser
+    # NOTE other parsers may be pasted here
+    @parser ||= GsmarenaParser.new(params)
+    @parser
+  end
 
   def respond_with!(status_code, body = {})
     status status_code
