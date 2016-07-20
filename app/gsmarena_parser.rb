@@ -9,7 +9,7 @@ class GsmarenaParser < MechanizeParser
   def brands
     get GSMARENA_MAKERS_PAGE
     search('.st-text a').each_with_object([]) do |item, acc|
-      title = item.children.first['alt']
+      title = item.children.first.text
       href = item['href']
       next unless title
       acc << { title: title, href: href }
